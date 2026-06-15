@@ -31,7 +31,7 @@ export function HourStats({ stats }) {
         <StatCard label="请假课时" value={totalLeave} helper={`占比 ${leaveRate}% · 按50%折算`} />
         <StatCard label="缺勤课时" value={totalAbsent} helper={`占比 ${absentRate}% · 不计入出勤`} />
         <StatCard label="有效出勤课时" value={totalAttended} helper="折算后合计" />
-        <StatCard label="平均出勤率" value={`${avgRate}%`} helper="按总应到课时加权" />
+        <StatCard label="有效出勤率" value={`${avgRate}%`} helper="按总应到课时加权" />
       </div>
 
       <div className="panel breakdown-panel">
@@ -75,48 +75,63 @@ export function HourStats({ stats }) {
                 <th>迟到率</th>
                 <th>请假率</th>
                 <th>缺勤率</th>
-                <th>出勤率</th>
+                <th>有效出勤率</th>
               </tr>
             </thead>
             <tbody>
-              {stats.map((item) => (
-                <tr key={item.class_id}>
-                  <td>
-                    <strong>{item.class_name}</strong>
-                  </td>
-                  <td>{item.student_count}</td>
-                  <td>{item.planned_hours}</td>
-                  <td>{item.expected_total_hours}</td>
-                  <td className="col-present">
-                    <span className="status-pill">{item.present_hours}</span>
-                  </td>
-                  <td className="col-late">
-                    <span className="status-pill late">{item.late_hours}</span>
-                  </td>
-                  <td className="col-leave">
-                    <span className="status-pill leave">{item.leave_hours}</span>
-                  </td>
-                  <td className="col-absent">
-                    <span className="status-pill absent">{item.absent_hours}</span>
-                  </td>
-                  <td>{item.attended_hours}</td>
-                  <td>
-                    <span className="status-pill">{item.present_rate}%</span>
-                  </td>
-                  <td>
-                    <span className="status-pill late">{item.late_rate}%</span>
-                  </td>
-                  <td>
-                    <span className="status-pill leave">{item.leave_rate}%</span>
-                  </td>
-                  <td>
-                    <span className="status-pill absent">{item.absent_rate}%</span>
-                  </td>
-                  <td>
-                    <span className="status-pill">{item.attendance_rate}%</span>
-                  </td>
-                </tr>
-              ))}
+              {stats.map((item) => {
+                if (!item.expected_total_hours) {
+                  return (
+                    <tr key={item.class_id} className="row-empty">
+                      <td>
+                        <strong>{item.class_name}</strong>
+                      </td>
+                      <td>{item.student_count}</td>
+                      <td colSpan={12}>
+                        <span className="empty-hint">暂无排课记录</span>
+                      </td>
+                    </tr>
+                  );
+                }
+                return (
+                  <tr key={item.class_id}>
+                    <td>
+                      <strong>{item.class_name}</strong>
+                    </td>
+                    <td>{item.student_count}</td>
+                    <td>{item.planned_hours}</td>
+                    <td>{item.expected_total_hours}</td>
+                    <td className="col-present">
+                      <span className="status-pill">{item.present_hours}</span>
+                    </td>
+                    <td className="col-late">
+                      <span className="status-pill late">{item.late_hours}</span>
+                    </td>
+                    <td className="col-leave">
+                      <span className="status-pill leave">{item.leave_hours}</span>
+                    </td>
+                    <td className="col-absent">
+                      <span className="status-pill absent">{item.absent_hours}</span>
+                    </td>
+                    <td>{item.attended_hours}</td>
+                    <td>
+                      <span className="status-pill">{item.present_rate}%</span>
+                    </td>
+                    <td>
+                      <span className="status-pill late">{item.late_rate}%</span>
+                    </td>
+                    <td>
+                      <span className="status-pill leave">{item.leave_rate}%</span>
+                    </td>
+                    <td>
+                      <span className="status-pill absent">{item.absent_rate}%</span>
+                    </td>
+                    <td>
+                      <span className="status-pill">{item.attendance_rate}%</span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -418,6 +418,16 @@ td small {
   color: #0f766e;
 }
 
+.empty-hint {
+  color: #94a3ab;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.row-empty {
+  background: #f6fafa;
+}
+
 @media (max-width: 900px) {
   .app-shell,
   .two-column,

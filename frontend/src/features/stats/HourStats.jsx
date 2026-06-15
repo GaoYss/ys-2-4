@@ -37,16 +37,14 @@ export function HourStats({ stats }) {
       <div className="panel breakdown-panel">
         <div className="breakdown-header">
           <span className="breakdown-title">考勤构成</span>
-          {totalExpected > 0 && (
-            <div className="breakdown-legend">
-              <span className="legend-item legend-present">正常 {presentRate}%</span>
-              <span className="legend-item legend-late">迟到 {lateRate}%</span>
-              <span className="legend-item legend-leave">请假 {leaveRate}%</span>
-              <span className="legend-item legend-absent">缺勤 {absentRate}%</span>
-            </div>
-          )}
+          <div className="breakdown-legend">
+            <span className="legend-item legend-present">正常 {presentRate}%</span>
+            <span className="legend-item legend-late">迟到 {lateRate}%</span>
+            <span className="legend-item legend-leave">请假 {leaveRate}%</span>
+            <span className="legend-item legend-absent">缺勤 {absentRate}%</span>
+          </div>
         </div>
-        {totalExpected > 0 ? (
+        {totalPlanned > 0 ? (
           <>
             <div className="breakdown-bar">
               <div className="breakdown-segment segment-present" style={{ width: `${barPresent}%` }} />

@@ -37,23 +37,33 @@ export function HourStats({ stats }) {
       <div className="panel breakdown-panel">
         <div className="breakdown-header">
           <span className="breakdown-title">考勤构成</span>
-          <div className="breakdown-legend">
-            <span className="legend-item legend-present">正常 {presentRate}%</span>
-            <span className="legend-item legend-late">迟到 {lateRate}%</span>
-            <span className="legend-item legend-leave">请假 {leaveRate}%</span>
-            <span className="legend-item legend-absent">缺勤 {absentRate}%</span>
+          {totalExpected > 0 && (
+            <div className="breakdown-legend">
+              <span className="legend-item legend-present">正常 {presentRate}%</span>
+              <span className="legend-item legend-late">迟到 {lateRate}%</span>
+              <span className="legend-item legend-leave">请假 {leaveRate}%</span>
+              <span className="legend-item legend-absent">缺勤 {absentRate}%</span>
+            </div>
+          )}
+        </div>
+        {totalExpected > 0 ? (
+          <>
+            <div className="breakdown-bar">
+              <div className="breakdown-segment segment-present" style={{ width: `${barPresent}%` }} />
+              <div className="breakdown-segment segment-late" style={{ width: `${barLate}%` }} />
+              <div className="breakdown-segment segment-leave" style={{ width: `${barLeave}%` }} />
+              <div className="breakdown-segment segment-absent" style={{ width: `${barAbsent}%` }} />
+            </div>
+            <div className="breakdown-summary">
+              <span>有效出勤率 <strong>{avgRate}%</strong></span>
+              <span>正常全额 + 迟到×0.8 + 请假×0.5 + 缺勤×0</span>
+            </div>
+          </>
+        ) : (
+          <div className="breakdown-empty">
+            <span className="empty-hint">暂无数据</span>
           </div>
-        </div>
-        <div className="breakdown-bar">
-          <div className="breakdown-segment segment-present" style={{ width: `${barPresent}%` }} />
-          <div className="breakdown-segment segment-late" style={{ width: `${barLate}%` }} />
-          <div className="breakdown-segment segment-leave" style={{ width: `${barLeave}%` }} />
-          <div className="breakdown-segment segment-absent" style={{ width: `${barAbsent}%` }} />
-        </div>
-        <div className="breakdown-summary">
-          <span>有效出勤率 <strong>{avgRate}%</strong></span>
-          <span>正常全额 + 迟到×0.8 + 请假×0.5 + 缺勤×0</span>
-        </div>
+        )}
       </div>
 
       <div className="table-panel">
@@ -80,7 +90,7 @@ export function HourStats({ stats }) {
             </thead>
             <tbody>
               {stats.map((item) => {
-                if (!item.expected_total_hours) {
+                if (!item.planned_hours) {
                   return (
                     <tr key={item.class_id} className="row-empty">
                       <td>

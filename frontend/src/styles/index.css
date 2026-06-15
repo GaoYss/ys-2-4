@@ -119,6 +119,10 @@ small {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.metrics-grid-wide {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .stat-card,
 .panel,
 .table-panel,
@@ -313,10 +317,112 @@ td small {
   border-color: #ffb8ae;
 }
 
+.hour-stats-table .col-present,
+.hour-stats-table .col-late,
+.hour-stats-table .col-leave,
+.hour-stats-table .col-absent {
+  white-space: nowrap;
+}
+
+.breakdown-panel {
+  display: grid;
+  gap: 12px;
+}
+
+.breakdown-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.breakdown-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.breakdown-legend {
+  display: flex;
+  gap: 16px;
+}
+
+.legend-item {
+  align-items: center;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 6px;
+}
+
+.legend-item::before {
+  border-radius: 3px;
+  content: "";
+  display: inline-block;
+  height: 10px;
+  width: 10px;
+}
+
+.legend-present::before {
+  background: #0f766e;
+}
+
+.legend-late::before {
+  background: #e6a817;
+}
+
+.legend-leave::before {
+  background: #d48806;
+}
+
+.legend-absent::before {
+  background: #b42318;
+}
+
+.breakdown-bar {
+  background: #eef3f5;
+  border-radius: 6px;
+  display: flex;
+  height: 24px;
+  overflow: hidden;
+}
+
+.breakdown-segment {
+  min-width: 0;
+  transition: width 0.3s ease;
+}
+
+.segment-present {
+  background: #0f766e;
+}
+
+.segment-late {
+  background: #e6a817;
+}
+
+.segment-leave {
+  background: #d48806;
+}
+
+.segment-absent {
+  background: #b42318;
+}
+
+.breakdown-summary {
+  align-items: center;
+  color: #52646b;
+  display: flex;
+  font-size: 12px;
+  gap: 20px;
+}
+
+.breakdown-summary strong {
+  color: #0f766e;
+}
+
 @media (max-width: 900px) {
   .app-shell,
   .two-column,
   .metrics-grid,
+  .metrics-grid-wide,
   .form-grid,
   .toolbar-panel {
     grid-template-columns: 1fr;
@@ -333,5 +439,16 @@ td small {
   .topbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .breakdown-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .breakdown-legend {
+    flex-wrap: wrap;
+    gap: 8px;
   }
 }

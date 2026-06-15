@@ -8,11 +8,10 @@ export function HourStats({ stats }) {
   const totalLeave = stats.reduce((sum, item) => sum + item.leave_hours, 0);
   const totalAbsent = stats.reduce((sum, item) => sum + item.absent_hours, 0);
   const totalAttended = stats.reduce((sum, item) => sum + item.attended_hours, 0);
-  const avgRate = stats.length
-    ? Math.round(stats.reduce((sum, item) => sum + item.attendance_rate, 0) / stats.length)
-    : 0;
-
   const totalExpected = stats.reduce((sum, item) => sum + item.expected_total_hours, 0);
+  const avgRate = totalExpected
+    ? Math.round((totalAttended / totalExpected) * 1000) / 10
+    : 0;
   const presentRate = totalExpected ? Math.round((totalPresent / totalExpected) * 1000) / 10 : 0;
   const lateRate = totalExpected ? Math.round((totalLate / totalExpected) * 1000) / 10 : 0;
   const leaveRate = totalExpected ? Math.round((totalLeave / totalExpected) * 1000) / 10 : 0;
@@ -32,7 +31,7 @@ export function HourStats({ stats }) {
         <StatCard label="请假课时" value={totalLeave} helper={`占比 ${leaveRate}% · 按50%折算`} />
         <StatCard label="缺勤课时" value={totalAbsent} helper={`占比 ${absentRate}% · 不计入出勤`} />
         <StatCard label="有效出勤课时" value={totalAttended} helper="折算后合计" />
-        <StatCard label="平均出勤率" value={`${avgRate}%`} helper="按班级平均" />
+        <StatCard label="平均出勤率" value={`${avgRate}%`} helper="按总应到课时加权" />
       </div>
 
       <div className="panel breakdown-panel">

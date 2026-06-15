@@ -17,6 +17,7 @@ class TrainingStore:
                     {"id": 1, "name": "李明", "phone": "13800000001"},
                     {"id": 2, "name": "王雨", "phone": "13800000002"},
                     {"id": 3, "name": "陈晨", "phone": "13800000003"},
+                    {"id": 6, "name": "赵阳", "phone": "13800000006"},
                 ],
             },
             {
@@ -53,7 +54,8 @@ class TrainingStore:
         self.attendance = [
             {"id": 1, "session_id": 1, "student_id": 1, "status": "present"},
             {"id": 2, "session_id": 1, "student_id": 2, "status": "late"},
-            {"id": 3, "session_id": 1, "student_id": 3, "status": "absent"},
+            {"id": 3, "session_id": 1, "student_id": 6, "status": "leave"},
+            {"id": 4, "session_id": 1, "student_id": 3, "status": "absent"},
         ]
 
     def next_id(self, collection):
